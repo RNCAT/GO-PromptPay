@@ -37,11 +37,15 @@ func promtpay(w http.ResponseWriter, r *http.Request) {
 		PromptPayID: id,
 		Amount:      amount,
 	}
-	promtPayCode, _ := payment.Gen()
-	hash := md5.New()
-	hash.Write([]byte(id))
-	filename := hex.EncodeToString(hash.Sum(nil))
-	_ = qrcode.WriteFile(promtPayCode, qrcode.Medium, 256, "./static/"+filename+".png")
+	promtPayCode, err := payment.Gen()
+	if err != nil {
+		tmpl.ExecuteTemplate(w, "error",nil)
+	}else {
+		hash := md5.New()
+		hash.Write([]byte(id))
+		filename := hex.EncodeToString(hash.Sum(nil))
+		_ = qrcode.WriteFile(promtPayCode, qrcode.Medium, 256, "./static/"+filename+".png")
 
-	_ = tmpl.ExecuteTemplate(w,"qrshow",filename)
+		_ = tmpl.ExecuteTemplate(w,"qrshow",filename)
+	}
 }
