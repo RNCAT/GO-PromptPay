@@ -20,7 +20,7 @@ func main()  {
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	http.HandleFunc("/",home)
 	http.HandleFunc("/promptpay",promtpay)
-	_ = http.ListenAndServe(":8080", nil)
+	_ = http.ListenAndServe(":80", nil)
 }
 
 func home(w http.ResponseWriter, r *http.Request)  {
