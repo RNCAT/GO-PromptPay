@@ -4,6 +4,8 @@
     <list default="true" id="7973bc97-c585-4e78-8060-e65f2b151fc2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/781e5e245d69b566979b86e28d23f2c7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/qrshow.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/qrshow.tmpl" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +45,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

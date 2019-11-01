@@ -3,8 +3,10 @@ package main
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"github.com/carlescere/scheduler"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	pp "github.com/Frontware/promptpay"
@@ -16,7 +18,8 @@ var tmpl = template.Must(template.ParseGlob("templates/*"))
 var fs = http.FileServer(http.Dir("static/"))
 
 func main()  {
-	log.Println("Server started at : http://localhost:8080")
+	_, _ = scheduler.Every(7).Day().Run(delFile)
+	log.Println("Server started at : http://localhost")
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	http.HandleFunc("/",home)
 	http.HandleFunc("/promptpay",promtpay)
@@ -44,8 +47,16 @@ func promtpay(w http.ResponseWriter, r *http.Request) {
 		hash := md5.New()
 		hash.Write([]byte(id))
 		filename := hex.EncodeToString(hash.Sum(nil))
-		_ = qrcode.WriteFile(promtPayCode, qrcode.Medium, 256, "./static/"+filename+".png")
+		log.Print(promtPayCode)
+		_ = qrcode.WriteFile(promtPayCode, qrcode.Medium, 256, "./static/results/"+filename+".png")
 
 		_ = tmpl.ExecuteTemplate(w,"qrshow",filename)
 	}
+}
+
+func delFile()  {
+	_ = os.RemoveAll("./static/results")
+	log.Println("Delete results dir complete")
+	_ = os.MkdirAll("./static/results",0700)
+	log.Println("Create results dir complete")
 }
