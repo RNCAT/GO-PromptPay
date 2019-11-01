@@ -42,7 +42,7 @@ func promtpay(w http.ResponseWriter, r *http.Request) {
 	}
 	promtPayCode, err := payment.Gen()
 	if err != nil {
-		tmpl.ExecuteTemplate(w, "error",nil)
+		_ = tmpl.ExecuteTemplate(w, "error", nil)
 	}else {
 		hash := md5.New()
 		hash.Write([]byte(id))
